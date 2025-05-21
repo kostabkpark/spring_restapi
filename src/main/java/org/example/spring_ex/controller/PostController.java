@@ -1,8 +1,11 @@
 package org.example.spring_ex.controller;
 
+import org.example.spring_ex.model.Post;
 import org.example.spring_ex.service.PostServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -16,8 +19,8 @@ public class PostController {
   }
 
   @GetMapping("/posts")
-  public String viewAllPosts() {
-    String posts = postService.getAllPosts();
+  public List<Post> viewAllPosts() {
+    List<Post> posts = postService.getAllPosts();
     return posts;
   }
 
