@@ -25,8 +25,7 @@ public class PostRepositoryImplMemory implements PostRepositoryInterface{
     post.setTitle("게시판 글 테스트 2");
     posts.put(seq, post);
 
-    List<Post> postList = new ArrayList<Post>();
-    postList = (List)posts.values();
+    List<Post> postList = new ArrayList<Post>(posts.values());
     return postList;
   }
 
