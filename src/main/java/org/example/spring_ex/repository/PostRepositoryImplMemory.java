@@ -12,19 +12,22 @@ import java.util.Map;
 public class PostRepositoryImplMemory implements PostRepositoryInterface{
   private static Map<Integer, Post> posts = new HashMap<Integer, Post>();
   private static int seq = 0;
-  @Override
-  public List<Post> findAll() {
+
+  public PostRepositoryImplMemory() {
     Post post = new Post();
     seq++;
     post.setPostId(seq);
     post.setTitle("게시판 글 테스트 1");
     posts.put(seq, post);
 
+    post = new Post();
     seq++;
     post.setPostId(seq);
     post.setTitle("게시판 글 테스트 2");
     posts.put(seq, post);
-
+  }
+  @Override
+  public List<Post> findAll() {
     List<Post> postList = new ArrayList<Post>(posts.values());
     return postList;
   }
