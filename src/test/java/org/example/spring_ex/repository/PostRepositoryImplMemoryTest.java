@@ -86,6 +86,21 @@ class PostRepositoryImplMemoryTest {
     Assertions.assertThat(remove.getPostId()).isEqualTo(2);
   }
 
+  @Test
+  @DisplayName("게시판 글 수정 테스트")
+  void 게시판_글_수정() {
+    //given
+    int postId = 2;
+    Post post = posts.get(postId);
+    post.setBody("update test body");
+    post.setLikes(10);
+    //when
+    posts.put(postId, post);
+    //then
+    Assertions.assertThat(posts.get(postId).getBody()).isEqualTo("update test body");
+    Assertions.assertThat(posts.get(postId).getLikes()).isEqualTo(10);
+  }
+
   @AfterAll
   static void finalizeMethod(){
     System.out.println("After All");

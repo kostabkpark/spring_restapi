@@ -36,4 +36,18 @@ public class PostServiceImpl2 implements PostServiceInterface {
   public void removePost(int postId) {
     postRepository.deletePost(postId);
   }
+
+  @Override
+  public void updateBodyPost(int postId, Post post) {
+    Post findPost = postRepository.findByPostId(postId);
+    findPost.setBody(post.getBody());
+    postRepository.updatePost(postId, findPost);
+  }
+
+  @Override
+  public void updateLikesPost(int postId, Post post) {
+    Post findPost = postRepository.findByPostId(postId);
+    findPost.setLikes(post.getLikes());
+    postRepository.updatePost(postId, findPost);
+  }
 }

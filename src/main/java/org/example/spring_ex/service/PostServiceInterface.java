@@ -9,4 +9,6 @@ public interface PostServiceInterface {
   Post getPostByPostId(int postId);
   int addPost(Post post);
   void removePost(int postId);
+  void updateBodyPost(int postId, Post post);
+  void updateLikesPost(int postId, Post post);
 }

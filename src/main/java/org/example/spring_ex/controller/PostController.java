@@ -43,12 +43,14 @@ public class PostController {
   }
 
   @PatchMapping("/posts/{postId}")
-  public String updateBodyPost(@PathVariable Integer postId) {
-    return "updateBodyPost";
+  public String updateBodyPost(@PathVariable Integer postId, @RequestBody Post post) {
+    postService.updateBodyPost(postId, post);
+    return "updateBodyPost == 성공";
   }
 
   @PutMapping("/posts/{postId}")
-  public String updateLikesPost(@PathVariable Integer postId) {
-    return "updateLikesPost";
+  public String updateLikesPost(@PathVariable Integer postId, @RequestBody Post post) {
+    postService.updateLikesPost(postId, post);
+    return "updateLikesPost == 성공";
   }
 }

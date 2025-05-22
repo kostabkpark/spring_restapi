@@ -52,7 +52,7 @@ public class PostRepositoryImplMemory implements PostRepositoryInterface{
   }
 
   @Override
-  public void updatePost(Post post) {
-
+  public void updatePost(int postId, Post post) {
+    posts.put(postId, post);
   }
 }
