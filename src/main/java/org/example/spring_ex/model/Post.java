@@ -2,11 +2,9 @@ package org.example.spring_ex.model;
 
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Post {
   private int postId;
   private String title;
