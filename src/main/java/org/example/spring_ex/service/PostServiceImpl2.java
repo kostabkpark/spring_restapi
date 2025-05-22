@@ -25,4 +25,10 @@ public class PostServiceImpl2 implements PostServiceInterface {
     Post post = postRepository.findByPostId(postId);
     return post;
   }
+
+  @Override
+  public int addPost(Post post) {
+    int postId = postRepository.insertPost(post);
+    return postId;
+  }
 }

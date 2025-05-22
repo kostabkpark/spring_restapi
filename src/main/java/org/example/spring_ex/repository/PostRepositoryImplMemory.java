@@ -45,7 +45,10 @@ public class PostRepositoryImplMemory implements PostRepositoryInterface{
 
   @Override
   public int insertPost(Post post) {
-    return 0;
+    seq++;
+    post.setPostId(seq);
+    posts.put(seq, post);
+    return seq;
   }
 
   @Override

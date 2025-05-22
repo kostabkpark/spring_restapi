@@ -31,8 +31,9 @@ public class PostController {
   }
 
   @PostMapping("/posts")
-  public String createNewPost() {
-    return "createNewPost";
+  public String createNewPost(@RequestBody Post post) {
+    int postId = postService.addPost(post);
+    return postId + " 번째 게시판 글 등록 완료 !!!";
   }
 
   @DeleteMapping("/posts/{postId}")

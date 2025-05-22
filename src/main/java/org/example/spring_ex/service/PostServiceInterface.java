@@ -7,4 +7,5 @@ import java.util.List;
 public interface PostServiceInterface {
   List<Post> getAllPosts();
   Post getPostByPostId(int postId);
+  int addPost(Post post);
 }

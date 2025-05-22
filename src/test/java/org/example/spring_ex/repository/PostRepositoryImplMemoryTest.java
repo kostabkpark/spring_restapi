@@ -58,6 +58,23 @@ class PostRepositoryImplMemoryTest {
     Assertions.assertThat(post.getTitle()).isEqualTo("게시판 글 테스트 1");
   }
 
+  @Test
+  @DisplayName("게시판 글 등록 테스트")
+  void 게시판_글_등록() {
+    // given
+    seq++;
+    Post post = new Post();
+    post.setTitle("게시판 글 테스트 3");
+    post.setPostId(seq);
+    post.setBody("test body");
+    post.setLikes(0);
+    // when
+    posts.put(seq, post);
+    // then
+    Assertions.assertThat(posts.get(seq).getPostId()).isEqualTo(3);
+    Assertions.assertThat(posts.size()).isEqualTo(3);
+  }
+
   @AfterAll
   static void finalizeMethod(){
     System.out.println("After All");
