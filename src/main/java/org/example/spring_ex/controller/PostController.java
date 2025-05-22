@@ -25,8 +25,9 @@ public class PostController {
   }
 
   @GetMapping("/posts/{postId}")
-  public String viewPostDetail(@PathVariable Integer postId) {
-    return "viewPostDetail";
+  public Post viewPostDetail(@PathVariable Integer postId) {
+    Post post = postService.getPostByPostId(postId);
+    return post; //"viewPostDetail";
   }
 
   @PostMapping("/posts")

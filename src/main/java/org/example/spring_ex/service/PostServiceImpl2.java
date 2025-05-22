@@ -19,4 +19,10 @@ public class PostServiceImpl2 implements PostServiceInterface {
     List<Post> all = postRepository.findAll();
     return all;
   }
+
+  @Override
+  public Post getPostByPostId(int postId) {
+    Post post = postRepository.findByPostId(postId);
+    return post;
+  }
 }

@@ -34,7 +34,8 @@ public class PostRepositoryImplMemory implements PostRepositoryInterface{
 
   @Override
   public Post findByPostId(int postId) {
-    return null;
+    Post post = posts.get(postId);
+    return post;
   }
 
   @Override

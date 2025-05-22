@@ -13,7 +13,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS) // 이 애너테이션이 있으면 생성자 먼저 실행되어서 BeforeAll 의 메서드 앞에 static 안붙여도 됨
 class PostRepositoryImplMemoryTest {
   private static Map<Integer, Post> posts = new HashMap<Integer, Post>();
   private static int seq = 0;
@@ -23,9 +23,39 @@ class PostRepositoryImplMemoryTest {
 
   }
 
-  @BeforeAll // 생성자 이전에 실행
+  @BeforeAll // 생성자 이전에 실행되어서 static 이었으나...
   static void init(){
+    Post post = new Post();
+    seq++;
+    post.setPostId(seq);
+    post.setTitle("게시판 글 테스트 1");
+    posts.put(seq, post);
 
+    post = new Post();
+    seq++;
+    post.setPostId(seq);
+    post.setTitle("게시판 글 테스트 2");
+    posts.put(seq, post);
+  }
+
+  @Test
+  @DisplayName("게시판 전체 글 목록 테스트")
+  void findAll() {
+    // given -- 데이터가, 조건이 주어졌을 때
+    // when -- 테스트를 이 조건으로 하면
+    List<Post> postList = new ArrayList<Post>(posts.values());
+    // then -- 조건을 만족하면 테스트가 성공
+    Assertions.assertThat(postList.size()).isEqualTo(2);
+  }
+
+  @Test
+  @DisplayName("게시판 글 상세 조회 테스트")
+  void findByPostId() {
+    // given
+    // when
+    Post post = posts.get(1);
+    // then
+    Assertions.assertThat(post.getTitle()).isEqualTo("게시판 글 테스트 1");
   }
 
   @AfterAll
@@ -41,33 +71,5 @@ class PostRepositoryImplMemoryTest {
   @AfterEach
   void tearDown() {
     System.out.println("After Each");
-  }
-
-  @Test
-  @DisplayName("게시판 전체 글 목록 테스트")
-  void findAll() {
-    // given -- 데이터가, 조건이 주어졌을 때
-    Post post = new Post();
-    seq++;
-    post.setPostId(seq);
-    post.setTitle("게시판 글 테스트 1");
-    posts.put(seq, post);
-
-    post = new Post();
-    seq++;
-    post.setPostId(seq);
-    post.setTitle("게시판 글 테스트 2");
-    posts.put(seq, post);
-
-    // when -- 테스트를 이 조건으로 하면
-    List<Post> postList = new ArrayList<Post>(posts.values());
-    // then -- 조건을 만족하면 테스트가 성공
-    Assertions.assertThat(postList.size()).isEqualTo(2);
-  }
-
-  @Test
-  @DisplayName("게시판 글 상세 조회 테스트")
-  void findByPostId() {
-    System.out.println("Find by postid test !!!");
   }
 }
