@@ -40,7 +40,7 @@ public class PostRepositoryImplMemory implements PostRepositoryInterface{
 
   @Override
   public void deletePost(int postId) {
-
+    posts.remove(postId);
   }
 
   @Override

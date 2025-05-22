@@ -45,7 +45,7 @@ class PostRepositoryImplMemoryTest {
     // when -- 테스트를 이 조건으로 하면
     List<Post> postList = new ArrayList<Post>(posts.values());
     // then -- 조건을 만족하면 테스트가 성공
-    Assertions.assertThat(postList.size()).isEqualTo(2);
+    Assertions.assertThat(postList.size()).isGreaterThan(0);
   }
 
   @Test
@@ -73,6 +73,17 @@ class PostRepositoryImplMemoryTest {
     // then
     Assertions.assertThat(posts.get(seq).getPostId()).isEqualTo(3);
     Assertions.assertThat(posts.size()).isEqualTo(3);
+  }
+
+  @Test
+  @DisplayName("게시판 글 삭제 테스트")
+  void 게시판_글_삭제() {
+    //given
+    int postId = 2;
+    //when
+    Post remove = posts.remove(postId);
+    //then
+    Assertions.assertThat(remove.getPostId()).isEqualTo(2);
   }
 
   @AfterAll

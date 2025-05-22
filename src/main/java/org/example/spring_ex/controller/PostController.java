@@ -38,7 +38,8 @@ public class PostController {
 
   @DeleteMapping("/posts/{postId}")
   public String deletePost(@PathVariable Integer postId) {
-    return "deletePost";
+    postService.removePost(postId);
+    return "deletePost -- 성공";
   }
 
   @PatchMapping("/posts/{postId}")

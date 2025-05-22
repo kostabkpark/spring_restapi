@@ -31,4 +31,9 @@ public class PostServiceImpl2 implements PostServiceInterface {
     int postId = postRepository.insertPost(post);
     return postId;
   }
+
+  @Override
+  public void removePost(int postId) {
+    postRepository.deletePost(postId);
+  }
 }
