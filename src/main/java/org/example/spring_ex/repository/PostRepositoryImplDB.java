@@ -8,12 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//@Repository
-public class PostRepositoryImplMemory implements PostRepositoryInterface{
+@Repository
+public class PostRepositoryImplDB implements PostRepositoryInterface{
   private static Map<Integer, Post> posts = new HashMap<Integer, Post>();
   private static int seq = 0;
 
-  public PostRepositoryImplMemory() {
+  public PostRepositoryImplDB() {
     Post post = new Post();
     seq++;
     post.setPostId(seq);
