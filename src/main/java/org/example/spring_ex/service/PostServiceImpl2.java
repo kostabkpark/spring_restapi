@@ -6,8 +6,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+//@Service
 public class PostServiceImpl2 implements PostServiceInterface {
+  // 메모리/데이터베이스 사용하는 구현체
   private final PostRepositoryInterface postRepository;
 
   public PostServiceImpl2(PostRepositoryInterface postRepository) {
