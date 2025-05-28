@@ -34,6 +34,13 @@ public class PostController {
     return posts;
   }
 
+  @GetMapping("/posts/title")
+  public List<Post> viewAllPostsDynamicAll() {
+    String title = null;
+    List<Post> posts = postService.getAllPostsDynamic(title);
+    return posts;
+  }
+
   @GetMapping("/posts/{postId}")
   public Post viewPostDetail(@PathVariable Integer postId) {
     Post post = postService.getPostByPostId(postId);
