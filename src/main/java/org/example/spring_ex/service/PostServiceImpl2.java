@@ -26,6 +26,12 @@ public class PostServiceImpl2 implements PostServiceInterface {
   }
 
   @Override
+  public List<Post> getAllPostsDynamic(String title) {
+    List<Post> all = postRepository.findAllDynamic(title);
+    return all;
+  }
+
+  @Override
   public Post getPostByPostId(int postId) {
     Post post = postRepository.findByPostId(postId);
     return post;

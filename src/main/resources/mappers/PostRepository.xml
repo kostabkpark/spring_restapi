@@ -7,6 +7,15 @@
             resultType="org.example.spring_ex.model.Post">
         SELECT postId, title, body, likes FROM post
     </select>
+    <select id="findAllDynamic"
+            resultType="org.example.spring_ex.model.Post"
+            parameterType="String">
+        SELECT * FROM post
+        WHERE likes = 0
+        <if test="title != null">
+            AND title like #{title}
+        </if>
+    </select>
     <select id="findByPostId"
             resultType="org.example.spring_ex.model.Post"
             parameterType="int">

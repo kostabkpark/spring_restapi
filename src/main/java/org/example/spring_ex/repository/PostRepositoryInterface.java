@@ -13,4 +13,7 @@ public interface PostRepositoryInterface {
   void deletePost(int postId);
   int insertPost(Post post);
   void updatePost(Post post);
+  default List<Post> findAllDynamic(String title){
+    return null;
+  };
 }
