@@ -3,11 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.spring_ex.repository.PostRepositoryInterface">
+    <!--  전체 게시글 조회 -->
     <select id="findAll"
             resultType="org.example.spring_ex.model.Post">
         SELECT postId, title, body, likes FROM post
     </select>
-<!--   version 1.0 : if
+
+<!-- ============================================
+version 1.0: 단일 조건 필터 (title만 사용)
+- 가장 단순한 동적 SQL
+- title이 null이 아니면 title like 검색
+- likes는 고정 필터
  <select id="findAllDynamic"-->
 <!--            resultType="org.example.spring_ex.model.Post"-->
 <!--            parameterType="String">-->
@@ -17,7 +23,11 @@
 <!--            AND title like concat('%', #{title}, '%')-->
 <!--        </if>-->
 <!--    </select>-->
-<!--   version 1.1 : choose,when,otherwise
+    <!-- ============================================
+  version 1.1: <choose> 사용 (단 하나의 조건만 적용) / choose,when,otherwise
+- title, likes 중 하나만 적용됨 (첫 번째로 만족하는 조건만 실행)
+- 나머지 조건은 무시됨
+- else 역할의 <otherwise>로 기본 필터 추가 가능
    <select id="findAllDynamic"-->
 <!--                resultType="org.example.spring_ex.model.Post"-->
 <!--                parameterType="org.example.spring_ex.dto.PostRequiryDto">-->
@@ -35,16 +45,39 @@
 <!--                    </otherwise>-->
 <!--                </choose>-->
 <!--        </select>-->
-<!--    version 1.2 : where -->
+<!-- ============================================
+version 1.2: <where> + <if> 사용
+- title, likes 조건을 동시에 사용할 수 있음
+- <where>는 조건이 있으면 WHERE 자동 추가 + 첫 AND 제거
+- 조건이 모두 없으면 WHERE 자체 제거됨
+
+💡 아래 조건별 결과 예시:
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+① title="test", likes=0
+→ SELECT * FROM post
+WHERE title LIKE '%test%'
+
+② title="", likes=10
+→ SELECT * FROM post
+WHERE likes >= 10
+
+③ title="test", likes=10
+→ SELECT * FROM post
+WHERE title LIKE '%test%' AND likes >= 10
+
+④ title="", likes=0
+→ SELECT * FROM post
+(조건 없음 → WHERE도 없음)
+-->
     <select id="findAllDynamic"
             resultType="org.example.spring_ex.model.Post"
             parameterType="org.example.spring_ex.dto.PostRequiryDto">
         SELECT * FROM post
         <where>
-            <if test="title != null and title != ''">
+            <if test="title != null and title != ''"><!-- 🔸 title이 null이 아니고 빈 문자열도 아닐 경우에만 필터 적용 -->
                 title like concat('%', #{title}, '%')
             </if>
-            <if test="likes != 0">
+            <if test="likes != 0"><!-- 🔸 likes가 0이 아니면 필터 적용 -->
                 AND likes >= #{likes}
             </if>
         </where>
