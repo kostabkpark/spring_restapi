@@ -2,15 +2,17 @@ package org.example.spring_ex.service;
 
 import org.example.spring_ex.model.Post;
 import org.example.spring_ex.repository.PostRepositoryInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//@Service
+@Service
 public class PostServiceImpl2 implements PostServiceInterface {
-  // 메모리/데이터베이스 사용하는 구현체
+  // 메모리/데이터베이스(MyBatis) 사용하는 구현체
   private final PostRepositoryInterface postRepository;
 
+  @Autowired
   public PostServiceImpl2(PostRepositoryInterface postRepository) {
     this.postRepository = postRepository;
   }

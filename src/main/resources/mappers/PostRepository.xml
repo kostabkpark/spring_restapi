@@ -2,14 +2,31 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.sample1.repository.PostRepository">
+<mapper namespace="org.example.spring_ex.repository.PostRepositoryInterface">
 
-<!--    Post findByPostId(int postId);-->
-<!--    void deletePost(int postId);-->
-<!--    int insertPost(Post post);-->
-<!--    void updatePost(int postId, Post post);-->
     <select id="findAll"
             resultType="org.example.spring_ex.model.Post">
-        SELECT postId, title, body, likes FROM post
+        SELECT post_id, title, body, likes FROM post
     </select>
+    <select id="findByPostId"
+            resultType="org.example.spring_ex.model.Post"
+            parameterType="int">
+        select post_id, title, body, likes FROM post
+        where post_id = #{postId}
+    </select>
+    <insert id="insertPost" parameterType="org.example.spring_ex.model.Post"
+            useGeneratedKeys="true" >
+        insert into post (title, body, likes)
+        values (#{title}, #{body}, #{likes})
+    </insert>
+    <update id="updatePost" parameterType="org.example.spring_ex.model.Post">
+        update post
+        set likes = #{likes} , body = #{body}
+        where post_id = #{postId}
+    </update>
+    <delete id="deletePost"
+            parameterType="int">
+        delete from post
+        where post_id = #{postId}
+    </delete>
 </mapper>

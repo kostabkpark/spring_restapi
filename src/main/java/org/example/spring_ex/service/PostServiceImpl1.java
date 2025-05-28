@@ -15,7 +15,7 @@ public class PostServiceImpl1 implements PostServiceInterface {
   // Spring-data-jpa 를 사용하는 구현체
   private final PostRepository postRepository;
 
-  @Autowired
+  //@Autowired
   public PostServiceImpl1(PostRepository postRepository) {
     this.postRepository = postRepository;
   }
