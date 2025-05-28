@@ -1,6 +1,7 @@
 package org.example.spring_ex.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.spring_ex.dto.PostRequiryDto;
 import org.example.spring_ex.model.Post;
 import org.example.spring_ex.repository.PostRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,8 @@ public class PostServiceImpl2 implements PostServiceInterface {
   }
 
   @Override
-  public List<Post> getAllPostsDynamic(String title) {
-    log.info("getAllPostsDynamic service title {} ", title);
-    List<Post> all = postRepository.findAllDynamic(title);
+  public List<Post> getAllPostsDynamic(PostRequiryDto postDto) {
+    List<Post> all = postRepository.findAllDynamic(postDto);
     log.info("getAllPostsDynamic service result {} ", all);
     return all;
   }

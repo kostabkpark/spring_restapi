@@ -1,5 +1,6 @@
 package org.example.spring_ex.repository;
 
+import org.example.spring_ex.dto.PostRequiryDto;
 import org.example.spring_ex.model.Post;
 import org.springframework.stereotype.Repository;
 
@@ -57,7 +58,7 @@ public class PostRepositoryImplDB implements PostRepositoryInterface{
   }
 
   @Override
-  public List<Post> findAllDynamic(String title) {
+  public List<Post> findAllDynamic(PostRequiryDto post) {
     return List.of();
   }
 }

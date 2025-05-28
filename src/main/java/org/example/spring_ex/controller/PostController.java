@@ -37,7 +37,7 @@ public class PostController {
 
   @GetMapping("/posts/dynamic")
   public List<Post> viewAllPostsDynamicAll(@RequestBody PostRequiryDto postDto) {
-    List<Post> posts = postService.getAllPostsDynamic(postDto.getTitle());
+    List<Post> posts = postService.getAllPostsDynamic(postDto);
     return posts;
   }
 

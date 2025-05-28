@@ -1,6 +1,7 @@
 package org.example.spring_ex.repository;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.example.spring_ex.dto.PostRequiryDto;
 import org.example.spring_ex.model.Post;
 
 import java.util.List;
@@ -18,5 +19,5 @@ public interface PostRepositoryInterface {
 
   void updatePost(Post post);
 
-  List<Post> findAllDynamic(String title);
+  List<Post> findAllDynamic(PostRequiryDto post);
 }

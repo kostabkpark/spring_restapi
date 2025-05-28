@@ -1,5 +1,6 @@
 package org.example.spring_ex.service;
 
+import org.example.spring_ex.dto.PostRequiryDto;
 import org.example.spring_ex.model.Post;
 
 import java.util.List;
@@ -11,5 +12,5 @@ public interface PostServiceInterface {
   void removePost(int postId);
   void updateBodyPost(int postId, Post post);
   void updateLikesPost(int postId, Post post);
-  List<Post> getAllPostsDynamic(String title);
+  List<Post> getAllPostsDynamic(PostRequiryDto postRequiryDto);
 }
