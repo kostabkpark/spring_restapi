@@ -1,5 +1,6 @@
 package org.example.spring_ex.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.spring_ex.model.Post;
 import org.example.spring_ex.repository.PostRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Slf4j
 public class PostServiceImpl2 implements PostServiceInterface {
   // 메모리/데이터베이스(MyBatis) 사용하는 구현체
   private final PostRepositoryInterface postRepository;
@@ -31,8 +33,9 @@ public class PostServiceImpl2 implements PostServiceInterface {
 
   @Override
   public int addPost(Post post) {
-    int postId = postRepository.insertPost(post);
-    return postId;
+    postRepository.insertPost(post);
+    log.info("Post added: " + post.getPostId());
+    return post.getPostId();
   }
 
   @Override
@@ -44,13 +47,13 @@ public class PostServiceImpl2 implements PostServiceInterface {
   public void updateBodyPost(int postId, Post post) {
     Post findPost = postRepository.findByPostId(postId);
     findPost.setBody(post.getBody());
-    postRepository.updatePost(postId, findPost);
+    postRepository.updatePost(findPost);
   }
 
   @Override
   public void updateLikesPost(int postId, Post post) {
     Post findPost = postRepository.findByPostId(postId);
     findPost.setLikes(post.getLikes());
-    postRepository.updatePost(postId, findPost);
+    postRepository.updatePost(findPost);
   }
 }

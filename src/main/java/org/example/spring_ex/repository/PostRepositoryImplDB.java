@@ -52,7 +52,7 @@ public class PostRepositoryImplDB implements PostRepositoryInterface{
   }
 
   @Override
-  public void updatePost(int postId, Post post) {
-    posts.put(postId, post);
+  public void updatePost(Post post) {
+    posts.put(post.getPostId(), post);
   }
 }
