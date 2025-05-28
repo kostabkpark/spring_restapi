@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+//@Service
 @Slf4j
 public class PostServiceImpl1 implements PostServiceInterface {
   // Spring-data-jpa 를 사용하는 구현체

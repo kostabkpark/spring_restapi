@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository
+//@Repository
 public class PostRepositoryImplDB implements PostRepositoryInterface{
   private static Map<Integer, Post> posts = new HashMap<Integer, Post>();
   private static int seq = 0;
