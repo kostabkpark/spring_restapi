@@ -1,6 +1,7 @@
 package org.example.spring_ex.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.spring_ex.dto.PostRequiryDto;
 import org.example.spring_ex.model.Post;
 import org.example.spring_ex.service.PostServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +27,17 @@ public class PostController {
     return posts;
   }
 
-  @GetMapping("/posts/title/{title}")
-  public List<Post> viewAllPostsDynamic(@PathVariable(required = false) String title) {
-    log.info("viewAllPostsDynamic controller , title {}", title);
-    List<Post> posts = postService.getAllPostsDynamic(title);
-    log.info("viewAllPostsDynamic controller, results {}", posts);
-    return posts;
-  }
+//  @GetMapping("/posts/title/{title}")
+//  public List<Post> viewAllPostsDynamic(@PathVariable(required = false) String title) {
+//    log.info("viewAllPostsDynamic controller , title {}", title);
+//    List<Post> posts = postService.getAllPostsDynamic(title);
+//    log.info("viewAllPostsDynamic controller, results {}", posts);
+//    return posts;
+//  }
 
-  @GetMapping("/posts/title")
-  public List<Post> viewAllPostsDynamicAll() {
-    String title = null;
-    List<Post> posts = postService.getAllPostsDynamic(title);
+  @GetMapping("/posts/dynamic")
+  public List<Post> viewAllPostsDynamicAll(@RequestBody PostRequiryDto postDto) {
+    List<Post> posts = postService.getAllPostsDynamic(postDto.getTitle());
     return posts;
   }
 
