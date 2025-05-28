@@ -11,7 +11,5 @@ public interface PostServiceInterface {
   void removePost(int postId);
   void updateBodyPost(int postId, Post post);
   void updateLikesPost(int postId, Post post);
-  default List<Post> getAllPostsDynamic(String title) {
-    return null;
-  }
+  List<Post> getAllPostsDynamic(String title);
 }

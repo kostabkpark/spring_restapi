@@ -28,7 +28,9 @@ public class PostController {
 
   @GetMapping("/posts/title/{title}")
   public List<Post> viewAllPostsDynamic(@PathVariable(required = false) String title) {
+    log.info("viewAllPostsDynamic controller , title {}", title);
     List<Post> posts = postService.getAllPostsDynamic(title);
+    log.info("viewAllPostsDynamic controller, results {}", posts);
     return posts;
   }
 

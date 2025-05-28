@@ -13,7 +13,7 @@
         SELECT * FROM post
         WHERE likes = 0
         <if test="title != null">
-            AND title like #{title}
+            AND title like concat('%', #{title}, '%')
         </if>
     </select>
     <select id="findByPostId"

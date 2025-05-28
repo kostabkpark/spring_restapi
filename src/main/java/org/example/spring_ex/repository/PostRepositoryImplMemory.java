@@ -55,4 +55,9 @@ public class PostRepositoryImplMemory implements PostRepositoryInterface{
   public void updatePost(Post post) {
     posts.put(post.getPostId(), post);
   }
+
+  @Override
+  public List<Post> findAllDynamic(String title) {
+    return List.of();
+  }
 }
