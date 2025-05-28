@@ -1,5 +1,6 @@
 package org.example.spring_ex.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.spring_ex.model.Post;
 import org.example.spring_ex.service.PostServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Slf4j
 public class PostController {
   private final PostServiceInterface postService;
 
@@ -32,7 +34,10 @@ public class PostController {
 
   @PostMapping("/posts")
   public String createNewPost(@RequestBody Post post) {
+    log.info("Creating new post: {}", post);
+    System.out.println("Creating new post: " + post);
     int postId = postService.addPost(post);
+    log.info("New post id: {}" , postId);
     return postId + " 번째 게시판 글 등록 완료 !!!";
   }
 

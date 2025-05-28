@@ -1,5 +1,6 @@
 package org.example.spring_ex.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.spring_ex.model.Post;
 import org.example.spring_ex.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class PostServiceImpl1 implements PostServiceInterface {
   // Spring-data-jpa 를 사용하는 구현체
   private final PostRepository postRepository;
