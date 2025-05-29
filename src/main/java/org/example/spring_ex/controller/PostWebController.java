@@ -69,9 +69,9 @@ public class PostWebController {
     return "redirect:/posts"; //"deletePost -- 성공";
   }
 
-  @PutMapping("/posts/{postId}")
-  public String updateLikesPost(@PathVariable Integer postId, @RequestBody Post post) {
-    postService.updateLikesPost(postId, post);
-    return "updateLikesPost == 성공";
+  @GetMapping("/posts/likes/{postId}")
+  public String updateLikesPost(@PathVariable Integer postId) {
+    postService.updateLikesPost(postId);
+    return "redirect:/posts/{postId}"; // "updateLikesPost == 성공";
   }
 }

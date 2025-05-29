@@ -12,6 +12,8 @@
         <label for="body">본문</label>
         <input type="text" th:field="*{body}" placeholder="글을 입력하세요">
         <input type="submit" value="수정">
+        <input type="text" th:value="*{likes}" disabled>
+        <button th:onclick="|location.href='@{/posts/likes/{postId}(postId=${post.postId})}'|">좋아요</button>
     </form>
 </body>
 </html>

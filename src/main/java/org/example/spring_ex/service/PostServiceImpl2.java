@@ -63,4 +63,11 @@ public class PostServiceImpl2 implements PostServiceInterface {
     findPost.setLikes(post.getLikes());
     postRepository.updatePost(findPost);
   }
+
+  @Override
+  public void updateLikesPost(int postId) {
+    Post findPost = postRepository.findByPostId(postId);
+    findPost.setLikes(findPost.getLikes() + 1);
+    postRepository.updatePost(findPost);
+  }
 }

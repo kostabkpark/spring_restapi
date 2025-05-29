@@ -12,5 +12,6 @@ public interface PostServiceInterface {
   void removePost(int postId);
   void updateBodyPost(int postId, Post post);
   void updateLikesPost(int postId, Post post);
+  void updateLikesPost(int postId);
   List<Post> getAllPostsDynamic(PostRequiryDto postRequiryDto);
 }
