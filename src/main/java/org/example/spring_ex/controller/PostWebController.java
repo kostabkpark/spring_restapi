@@ -29,14 +29,6 @@ public class PostWebController {
     return "post/postAll";
   }
 
-//  @GetMapping("/posts/title/{title}")
-//  public List<Post> viewAllPostsDynamic(@PathVariable(required = false) String title) {
-//    log.info("viewAllPostsDynamic controller , title {}", title);
-//    List<Post> posts = postService.getAllPostsDynamic(title);
-//    log.info("viewAllPostsDynamic controller, results {}", posts);
-//    return posts;
-//  }
-
   @GetMapping("/posts/dynamic")
   public List<Post> viewAllPostsDynamicAll(@RequestBody PostRequiryDto postDto) {
     List<Post> posts = postService.getAllPostsDynamic(postDto);
@@ -44,18 +36,24 @@ public class PostWebController {
   }
 
   @GetMapping("/posts/{postId}")
-  public Post viewPostDetail(@PathVariable Integer postId) {
+  public String viewPostDetail(@PathVariable Integer postId,
+                             Model model) {
     Post post = postService.getPostByPostId(postId);
-    return post; //"viewPostDetail";
+    model.addAttribute("post", post);
+    return "post/postDetail";
   }
 
-  @PostMapping("/posts")
-  public String createNewPost(@RequestBody Post post) {
+  @GetMapping("/posts/add")
+  public String createNewPost() {
+    return "post/postAdd";
+  }
+
+  @PostMapping("/posts/add")
+  public String createNewPost(@ModelAttribute Post post) {
     log.info("Creating new post: {}", post);
-    System.out.println("Creating new post: " + post);
     int postId = postService.addPost(post);
     log.info("New post id: {}" , postId);
-    return postId + " 번째 게시판 글 등록 완료 !!!";
+    return "redirect:/posts"; // postId + " 번째 게시판 글 등록 완료 !!!";
   }
 
   @DeleteMapping("/posts/{postId}")
