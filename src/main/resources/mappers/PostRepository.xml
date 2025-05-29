@@ -11,40 +11,41 @@
 
 <!-- ============================================
 version 1.0: 단일 조건 필터 (title만 사용)
-- 가장 단순한 동적 SQL
-- title이 null이 아니면 title like 검색
-- likes는 고정 필터
- <select id="findAllDynamic"-->
-<!--            resultType="org.example.spring_ex.model.Post"-->
-<!--            parameterType="String">-->
-<!--        SELECT * FROM post-->
-<!--        WHERE likes >= 0-->
-<!--        <if test="title != null">-->
-<!--            AND title like concat('%', #{title}, '%')-->
-<!--        </if>-->
-<!--    </select>-->
+ - 가장 단순한 동적 SQL
+ - title이 null이 아니면 title like 검색
+ - likes는 고정 필터
+ <select id="findAllDynamic"
+    resultType="org.example.spring_ex.model.Post"
+            parameterType="String">
+       SELECT * FROM post
+       WHERE likes >= 0
+      <if test="title != null">
+           AND title like concat('%', #{title}, '%')
+       </if>
+ </select>
+ -->
     <!-- ============================================
   version 1.1: <choose> 사용 (단 하나의 조건만 적용) / choose,when,otherwise
 - title, likes 중 하나만 적용됨 (첫 번째로 만족하는 조건만 실행)
 - 나머지 조건은 무시됨
 - else 역할의 <otherwise>로 기본 필터 추가 가능
-   <select id="findAllDynamic"-->
-<!--                resultType="org.example.spring_ex.model.Post"-->
-<!--                parameterType="org.example.spring_ex.dto.PostRequiryDto">-->
-<!--            SELECT * FROM post-->
-<!--            WHERE postId >= 0-->
-<!--                <choose>-->
-<!--                    <when test="title != null">-->
-<!--                        AND title like concat('%', #{title}, '%')-->
-<!--                    </when>-->
-<!--                    <when test="likes != 0">-->
-<!--                        AND likes >= #{likes}-->
-<!--                    </when>-->
-<!--                    <otherwise>-->
-<!--                        and body like "%test%"-->
-<!--                    </otherwise>-->
-<!--                </choose>-->
-<!--        </select>-->
+   <select id="findAllDynamic"
+                resultType="org.example.spring_ex.model.Post"
+                parameterType="org.example.spring_ex.dto.PostRequiryDto">
+            SELECT * FROM post
+            WHERE postId >= 0
+                <choose>
+                   <when test="title != null">
+                        AND title like concat('%', #{title}, '%')
+                    </when>
+                    <when test="likes != 0">
+                        AND likes >= #{likes}
+                    </when>
+                    <otherwise>
+                        and body like "%test%"
+                    </otherwise>
+                </choose>
+        </select> -->
 <!-- ============================================
 version 1.2: <where> + <if> 사용
 - title, likes 조건을 동시에 사용할 수 있음

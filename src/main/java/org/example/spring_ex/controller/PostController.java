@@ -5,12 +5,13 @@ import org.example.spring_ex.dto.PostRequiryDto;
 import org.example.spring_ex.model.Post;
 import org.example.spring_ex.service.PostServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(value = "/api")
 @Slf4j
 public class PostController {
   private final PostServiceInterface postService;
@@ -21,7 +22,7 @@ public class PostController {
     this.postService = postService;
   }
 
-  @GetMapping("/posts")
+  @GetMapping(value = "/posts", produces = MediaType.APPLICATION_XML_VALUE)
   public List<Post> viewAllPosts() {
     List<Post> posts = postService.getAllPosts();
     return posts;
