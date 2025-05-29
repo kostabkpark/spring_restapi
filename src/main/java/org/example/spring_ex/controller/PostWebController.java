@@ -43,6 +43,13 @@ public class PostWebController {
     return "post/postDetail";
   }
 
+  @PostMapping("/posts/update/{postId}")
+  public String updateBodyPost(@PathVariable Integer postId,
+                               @ModelAttribute Post post) {
+    postService.updateBodyPost(postId, post);
+    return "redirect:/posts/{postId}"; //"updateBodyPost == 성공";
+  }
+
   @GetMapping("/posts/add")
   public String createNewPost() {
     return "post/postAdd";
@@ -56,16 +63,10 @@ public class PostWebController {
     return "redirect:/posts"; // postId + " 번째 게시판 글 등록 완료 !!!";
   }
 
-  @GetMapping("/posts/delete/{postId}")
+  @PostMapping("/posts/delete/{postId}")
   public String deletePost(@PathVariable Integer postId) {
     postService.removePost(postId);
     return "redirect:/posts"; //"deletePost -- 성공";
-  }
-
-  @PatchMapping("/posts/{postId}")
-  public String updateBodyPost(@PathVariable Integer postId, @RequestBody Post post) {
-    postService.updateBodyPost(postId, post);
-    return "updateBodyPost == 성공";
   }
 
   @PutMapping("/posts/{postId}")

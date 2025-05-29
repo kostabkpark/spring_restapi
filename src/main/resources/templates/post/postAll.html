@@ -22,7 +22,12 @@
 
 <!--            <td th:text="${post.title}">title</td>-->
             <td th:text="${post.likes}">10</td>
-            <td><button th:onclick="|location.href='@{/posts/delete/{postId}(postId=${post.postId})}'|">삭제</button></td>
+            <td>
+                <form th:action="@{/posts/delete/{postId}(postId=${post.postId})}" method="post">
+                    <button type="submit">삭제</button>
+                </form>
+                <!-- <button th:onclick="|location.href='@{/posts/delete/{postId}(postId=${post.postId})}'|">삭제</button>-->
+            </td>
         </tr>
     </table>
 </body>

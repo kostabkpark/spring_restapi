@@ -5,12 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-    <h2>PostDetail</h2>
-    <ul>
-        <li th:text="${post.postId}">1</li>
-        <li th:text="${post.title}">test</li>
-        <li th:text="${post.body}">body</li>
-        <li th:text="${post.likes}">1</li>
-    </ul>
+    <h2>PostDetail - 수정</h2>
+    <form th:action="@{/posts/update/{postId}(postId=${post.postId})}" method="post" th:object="${post}">
+        <label for="title">제목</label>
+        <input type="text" th:field="*{title}" placeholder="제목을 입력하세요.">
+        <label for="body">본문</label>
+        <input type="text" th:field="*{body}" placeholder="글을 입력하세요">
+        <input type="submit" value="수정">
+    </form>
 </body>
 </html>
