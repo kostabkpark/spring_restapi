@@ -13,8 +13,14 @@
             <th>likes</th>
         </tr>
         <tr th:each="post : ${allPosts}">
-            <td th:text="${post.postId}">1</td>
-            <td th:text="${post.title}">title</td>
+            <td>
+                <a th:href="@{/posts/{postId}(postId=${post.postId})}" th:text="${post.postId}">1</a>
+            </td>
+            <td>
+                <a th:href="@{/posts/{postId}(postId=${post.postId})}" th:text="${post.title}">title</a>
+            </td>
+
+<!--            <td th:text="${post.title}">title</td>-->
             <td th:text="${post.likes}">10</td>
         </tr>
     </table>
