@@ -5,27 +5,28 @@ import org.example.spring_ex.dto.PostRequiryDto;
 import org.example.spring_ex.model.Post;
 import org.example.spring_ex.service.PostServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping(value = "/api")
+@Controller
 @Slf4j
-public class PostController {
+public class PostWebController {
   private final PostServiceInterface postService;
 
   // 의존성주입 - 1)생성자주입 2)필드주입 3)설정자주입
   @Autowired
-  public PostController(PostServiceInterface postService) {
+  public PostWebController(PostServiceInterface postService) {
     this.postService = postService;
   }
 
-  @GetMapping(value = "/posts", produces = MediaType.APPLICATION_XML_VALUE)
-  public List<Post> viewAllPosts() {
+  @GetMapping(value = "/posts")
+  public String viewAllPosts(Model model) {
     List<Post> posts = postService.getAllPosts();
-    return posts;
+    model.addAttribute("allPosts", posts);
+    return "post/postAll";
   }
 
 //  @GetMapping("/posts/title/{title}")
