@@ -56,10 +56,10 @@ public class PostWebController {
     return "redirect:/posts"; // postId + " 번째 게시판 글 등록 완료 !!!";
   }
 
-  @DeleteMapping("/posts/{postId}")
+  @GetMapping("/posts/delete/{postId}")
   public String deletePost(@PathVariable Integer postId) {
     postService.removePost(postId);
-    return "deletePost -- 성공";
+    return "redirect:/posts"; //"deletePost -- 성공";
   }
 
   @PatchMapping("/posts/{postId}")
