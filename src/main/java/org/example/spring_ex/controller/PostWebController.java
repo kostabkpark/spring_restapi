@@ -24,6 +24,7 @@ public class PostWebController {
 
   @GetMapping(value = "/posts")
   public String viewAllPosts(Model model) {
+    // URL 로 요청이 들어왔는지 로그를 남긴다. ---> filter
     List<Post> posts = postService.getAllPosts();
     model.addAttribute("allPosts", posts);
     return "post/postAll";
@@ -31,6 +32,7 @@ public class PostWebController {
 
   @GetMapping("/posts/dynamic")
   public List<Post> viewAllPostsDynamicAll(@RequestBody PostRequiryDto postDto) {
+    // URL 로 요청이 들어왔는지 로그를 남긴다. ---> filter
     List<Post> posts = postService.getAllPostsDynamic(postDto);
     return posts;
   }
@@ -38,6 +40,7 @@ public class PostWebController {
   @GetMapping("/posts/{postId}")
   public String viewPostDetail(@PathVariable Integer postId,
                              Model model) {
+    // URL 로 요청이 들어왔는지 로그를 남긴다. ---> filter
     Post post = postService.getPostByPostId(postId);
     model.addAttribute("post", post);
     return "post/postDetail";
@@ -46,17 +49,20 @@ public class PostWebController {
   @PostMapping("/posts/update/{postId}")
   public String updateBodyPost(@PathVariable Integer postId,
                                @ModelAttribute Post post) {
+    // URL 로 요청이 들어왔는지 로그를 남긴다. ---> filter
     postService.updateBodyPost(postId, post);
     return "redirect:/posts/{postId}"; //"updateBodyPost == 성공";
   }
 
   @GetMapping("/posts/add")
   public String createNewPost() {
+    // URL 로 요청이 들어왔는지 로그를 남긴다. ---> filter
     return "post/postAdd";
   }
 
   @PostMapping("/posts/add")
   public String createNewPost(@ModelAttribute Post post) {
+    // URL 로 요청이 들어왔는지 로그를 남긴다. ---> filter
     log.info("Creating new post: {}", post);
     int postId = postService.addPost(post);
     log.info("New post id: {}" , postId);
@@ -65,12 +71,14 @@ public class PostWebController {
 
   @PostMapping("/posts/delete/{postId}")
   public String deletePost(@PathVariable Integer postId) {
+    // URL 로 요청이 들어왔는지 로그를 남긴다. ---> filter
     postService.removePost(postId);
     return "redirect:/posts"; //"deletePost -- 성공";
   }
 
   @GetMapping("/posts/likes/{postId}")
   public String updateLikesPost(@PathVariable Integer postId) {
+    // URL 로 요청이 들어왔는지 로그를 남긴다. ---> filter
     postService.updateLikesPost(postId);
     return "redirect:/posts/{postId}"; // "updateLikesPost == 성공";
   }
