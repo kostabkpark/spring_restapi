@@ -2,6 +2,7 @@ package org.example.spring_ex.config;
 
 import org.example.spring_ex.filter.LogFilter;
 import org.example.spring_ex.filter.LogFilter2;
+import org.example.spring_ex.interceptor.MethodConversionFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +15,7 @@ public class WebConfig {
     FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
     filterRegistrationBean.setFilter(new LogFilter());
     filterRegistrationBean.setOrder(1);
-    filterRegistrationBean.addUrlPatterns("/*");
+    filterRegistrationBean.addUrlPatterns("/api/*");
     return filterRegistrationBean;
   }
 
@@ -23,9 +24,19 @@ public class WebConfig {
     FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
     filterRegistrationBean.setFilter(new LogFilter2());
     filterRegistrationBean.setOrder(2);
-    filterRegistrationBean.addUrlPatterns("/*");
+    filterRegistrationBean.addUrlPatterns("/api/*");
     return filterRegistrationBean;
   }
+
+  @Bean
+  public FilterRegistrationBean methodConvertFilter() {
+    FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+    filterRegistrationBean.setFilter(new MethodConversionFilter());
+    filterRegistrationBean.setOrder(3);
+    filterRegistrationBean.addUrlPatterns("/api/*");
+    return filterRegistrationBean;
+  }
+
 
 }
 ;
