@@ -70,7 +70,7 @@ public class PostWebController {
   }
 
   @PostMapping("/posts/delete/{postId}")
-  public String deletePost(@PathVariable Integer postId) {
+  public String deletePost(@PathVariable Integer postId) throws Exception {
     // URL 로 요청이 들어왔는지 로그를 남긴다. ---> filter
     postService.removePost(postId);
     return "redirect:/posts"; //"deletePost -- 성공";
