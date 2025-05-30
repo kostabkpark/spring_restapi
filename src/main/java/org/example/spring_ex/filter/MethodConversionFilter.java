@@ -1,4 +1,4 @@
-package org.example.spring_ex.interceptor;
+package org.example.spring_ex.filter;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
