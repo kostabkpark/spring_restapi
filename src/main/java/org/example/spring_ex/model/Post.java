@@ -12,4 +12,5 @@ public class Post {
   private String title;
   private String body;
   private int likes;
+  private String userid;
 }
