@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/posts")
 @Slf4j
 public class PostRestController {
   private final PostServiceInterface postService;
@@ -21,7 +21,7 @@ public class PostRestController {
     this.postService = postService;
   }
 
-  @GetMapping(value = "/posts")
+  @GetMapping
   public List<Post> viewAllPosts() {
     List<Post> posts = postService.getAllPosts();
     return posts;
@@ -35,19 +35,19 @@ public class PostRestController {
 //    return posts;
 //  }
 
-  @GetMapping("/posts/dynamic")
+  @GetMapping("/dynamic")
   public List<Post> viewAllPostsDynamicAll(@RequestBody PostRequiryDto postDto) {
     List<Post> posts = postService.getAllPostsDynamic(postDto);
     return posts;
   }
 
-  @GetMapping("/posts/{postId}")
+  @GetMapping("/{postId}")
   public Post viewPostDetail(@PathVariable Integer postId) {
     Post post = postService.getPostByPostId(postId);
     return post; //"viewPostDetail";
   }
 
-  @PostMapping("/posts")
+  @PostMapping
   public String createNewPost(@RequestBody Post post) {
     log.info("Creating new post: {}", post);
     System.out.println("Creating new post: " + post);
@@ -56,19 +56,19 @@ public class PostRestController {
     return postId + " 번째 게시판 글 등록 완료 !!!";
   }
 
-  @DeleteMapping("/posts/{postId}")
+  @DeleteMapping("/{postId}")
   public String deletePost(@PathVariable Integer postId) {
     postService.removePost(postId);
     return "deletePost -- 성공";
   }
 
-  @PatchMapping("/posts/{postId}")
+  @PatchMapping("/{postId}")
   public String updateBodyPost(@PathVariable Integer postId, @RequestBody Post post) {
     postService.updateBodyPost(postId, post);
     return "updateBodyPost == 성공";
   }
 
-  @PutMapping("/posts/{postId}")
+  @PutMapping("/{postId}")
   public String updateLikesPost(@PathVariable Integer postId, @RequestBody Post post) {
     postService.updateLikesPost(postId, post);
     return "updateLikesPost == 성공";
