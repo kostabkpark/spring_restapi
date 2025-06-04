@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.spring_ex.repository.UserRepositoryInterface">
+    <!--  전체 사용자 조회 -->
+    <select id="findAll"
+            resultType="org.example.spring_ex.model.User">
+        SELECT userid, pwd, name FROM user
+    </select>
+    <!--  사용자 조회 -->
+    <select id="findByUserid"
+            resultType="org.example.spring_ex.model.User"
+            parameterType="String">
+        SELECT userid, pwd, name FROM user where userid = #{userid}
+    </select>
+    <!--  사용자 등록 -->
+    <insert id="insertUser" parameterType="org.example.spring_ex.model.User">
+        insert into user
+        values (#{userid}, #{pwd}, #{name})
+    </insert>
+    <update id="updateUser" parameterType="org.example.spring_ex.model.User">
+        update user
+        set pwd = #{pwd}
+        where userid = #{userid}
+    </update>
+    <delete id="deleteUser"
+            parameterType="String">
+        delete from user
+        where userid = #{userid}
+    </delete>
+</mapper>
