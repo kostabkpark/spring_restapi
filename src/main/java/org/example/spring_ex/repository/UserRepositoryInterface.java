@@ -17,7 +17,7 @@ public interface UserRepositoryInterface {
 
   void deleteUser(String userid);
 
-  int insertUser(User user);
+  void insertUser(User user);
 
   void updateUser(User user);
 }
