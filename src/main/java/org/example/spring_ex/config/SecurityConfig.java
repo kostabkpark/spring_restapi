@@ -1,5 +1,7 @@
 package org.example.spring_ex.config;
 
+import org.example.spring_ex.handler.LoginFailureHandler;
+import org.example.spring_ex.handler.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,15 +26,16 @@ public class SecurityConfig {
               .anyRequest().authenticated())
         .csrf(c -> c.disable())
         .formLogin(login -> login
-              .loginPage("/users/login")
-              .usernameParameter("userid")
-              .passwordParameter("pwd")
-              .loginProcessingUrl("/users/login")
-              .failureHandler()
-              .successHandler())
+            .loginPage("/users/login")
+            .usernameParameter("userid")
+            .passwordParameter("pwd")
+//            .loginProcessingUrl("/users/login")
+            .loginProcessingUrl("/login-process")
+            .failureHandler(new LoginFailureHandler())
+            .successHandler(new LoginSuccessHandler()))
         .logout(logout -> logout
             .logoutUrl("/users/logout")
-            .logoutSuccessHandler());
+            .logoutSuccessUrl("/users/login?logout"));
     return http.build();
   }
 }
