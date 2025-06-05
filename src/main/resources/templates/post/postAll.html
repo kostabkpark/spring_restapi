@@ -19,16 +19,21 @@
             <td>
                 <a th:href="@{/posts/{postId}(postId=${post.postId})}" th:text="${post.title}">title</a>
             </td>
-
 <!--            <td th:text="${post.title}">title</td>-->
             <td th:text="${post.likes}">10</td>
+            <td th:text="${post.userid}">userid</td>
             <td>
-                <form th:action="@{/posts/delete/{postId}(postId=${post.postId})}" method="post">
-                    <button type="submit">삭제</button>
-                </form>
+                <div th:if="${post.userid == session.userid}">   <!--th:unless="${post.userid != session.userid -->
+                    <form th:action="@{/posts/delete/{postId}(postId=${post.postId})}" method="post">
+                        <button type="submit">삭제</button>
+                    </form>
+                </div>
                 <!-- <button th:onclick="|location.href='@{/posts/delete/{postId}(postId=${post.postId})}'|">삭제</button>-->
             </td>
         </tr>
     </table>
+    <div th:if="${param.error}">
+        게시판 글 삭제 실패
+    </div>
 </body>
 </html>

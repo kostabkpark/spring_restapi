@@ -1,5 +1,6 @@
 package org.example.spring_ex.controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.example.spring_ex.dto.PostRequiryDto;
 import org.example.spring_ex.model.Post;
@@ -70,10 +71,24 @@ public class PostWebController {
   }
 
   @PostMapping("/posts/delete/{postId}")
-  public String deletePost(@PathVariable Integer postId) throws Exception {
+  public String deletePost(@PathVariable Integer postId,
+                           HttpSession session) throws Exception {
     // URL 로 요청이 들어왔는지 로그를 남긴다. ---> filter
-    postService.removePost(postId);
-    return "redirect:/posts"; //"deletePost -- 성공";
+    // 로그인한 사용자 본인이 작성한 글만 삭제하도록 코드 추가
+    String userid = (String)session.getAttribute("userid");
+    Post post = postService.getPostByPostId(postId);
+    log.info("Deleting post: {}", post);
+    log.info("Session.userid: {}", userid);
+    if(userid != null && !userid.isBlank()) {
+      if(userid.equals(post.getUserid())) {
+        postService.removePost(postId);
+        return "redirect:/posts"; //"deletePost -- 성공";
+      } else {
+        return "redirect:/posts?error";
+      }
+    } else {
+      return "redirect:/posts?error";
+    }
   }
 
   @GetMapping("/posts/likes/{postId}")

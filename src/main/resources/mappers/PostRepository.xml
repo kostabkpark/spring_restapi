@@ -6,7 +6,7 @@
     <!--  전체 게시글 조회 -->
     <select id="findAll"
             resultType="org.example.spring_ex.model.Post">
-        SELECT postId, title, body, likes FROM post
+        SELECT postId, title, body, likes, userid FROM post
     </select>
 
 <!-- ============================================
@@ -92,8 +92,8 @@ WHERE title LIKE '%test%' AND likes >= 10
 <!--    </select>-->
     <insert id="insertPost" parameterType="org.example.spring_ex.model.Post"
             useGeneratedKeys="true" keyProperty="postId">
-        insert into post (title, body, likes)
-        values (#{title}, #{body}, #{likes})
+        insert into post (title, body, likes, userid)
+        values (#{title}, #{body}, #{likes}, #{userid})
     </insert>
     <update id="updatePost" parameterType="org.example.spring_ex.model.Post">
         update post

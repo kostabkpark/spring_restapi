@@ -25,12 +25,13 @@ public class UserWebController {
 
   @GetMapping("/{userid}")
   public User getUserByUserid(@PathVariable("userid") String userid) {
+
     return userService.getUserByUserid(userid);
   }
 
   @GetMapping("/login")
   public String login() {
-    return "/user/login";
+    return "user/login";
   }
 
 //  @PostMapping("/login")

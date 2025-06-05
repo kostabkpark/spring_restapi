@@ -12,7 +12,7 @@ public interface PostRepositoryInterface {
   //String getAllPosts();
   List<Post> findAll();
 
-  @Select("select postId, title, body, likes from post where postId = #{postId}")
+  @Select("select postId, title, body, likes, userid from post where postId = #{postId}")
   Post findByPostId(int postId);
 
   void deletePost(int postId);
