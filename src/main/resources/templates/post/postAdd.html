@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -11,7 +12,15 @@
         <input type="text" id="title" name="title" placeholder="제목을 입력하세요.">
         <label for="body">본문</label>
         <input type="text" id="body" name="body" placeholder="글을 입력하세요">
+        <input type="text" id="userid" name="userid" th:value="${session.userid}" hidden>
         <input type="submit" value="등록">
     </form>
+
+    <!-- 로그인 되어있을 경우에만 보임-->
+    <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/users/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
 </body>
 </html>

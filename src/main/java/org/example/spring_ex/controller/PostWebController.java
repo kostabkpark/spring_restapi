@@ -62,12 +62,21 @@ public class PostWebController {
   }
 
   @PostMapping("/posts/add")
-  public String createNewPost(@ModelAttribute Post post) {
+  public String createNewPost(@ModelAttribute Post post,
+                              HttpSession session) {
     // URL 로 요청이 들어왔는지 로그를 남긴다. ---> filter
+    // session.userid ==> post.userid
+    // 현재 로그인 한 사용자가 ModelAttribute 로 넘어온 사용자정보(등록한 정보)가 맞는지 확인 후 post add 처리
+    String userid = (String)session.getAttribute("userid");
     log.info("Creating new post: {}", post);
-    int postId = postService.addPost(post);
-    log.info("New post id: {}" , postId);
-    return "redirect:/posts"; // postId + " 번째 게시판 글 등록 완료 !!!";
+    if(userid != null && !userid.isEmpty() && !userid.isBlank()) {
+      if(userid.equals(post.getUserid())) {
+        int postId = postService.addPost(post);
+        log.info("New post id: {}" , postId);
+        return "redirect:/posts"; // postId + " 번째 게시판 글 등록 완료 !!!";
+      }
+    }
+    return "redirect:/posts/add";
   }
 
   @PostMapping("/posts/delete/{postId}")
@@ -83,12 +92,9 @@ public class PostWebController {
       if(userid.equals(post.getUserid())) {
         postService.removePost(postId);
         return "redirect:/posts"; //"deletePost -- 성공";
-      } else {
-        return "redirect:/posts?error";
       }
-    } else {
-      return "redirect:/posts?error";
     }
+    return "redirect:/posts?error";
   }
 
   @GetMapping("/posts/likes/{postId}")

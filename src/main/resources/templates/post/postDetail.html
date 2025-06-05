@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -16,5 +17,12 @@
     </form>
 
     <button th:onclick="|location.href='@{/posts/likes/{postId}(postId=${post.postId})}'|">좋아요</button>
+
+    <!-- 로그인 되어있을 경우에만 보임-->
+    <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/users/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
 </body>
 </html>

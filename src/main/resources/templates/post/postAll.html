@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -23,7 +24,7 @@
             <td th:text="${post.likes}">10</td>
             <td th:text="${post.userid}">userid</td>
             <td>
-                <div th:if="${post.userid == session.userid}">   <!--th:unless="${post.userid != session.userid -->
+                <div th:if="${post.userid == session.userid}">   <!-- th:unless="${post.userid != session.userid -->
                     <form th:action="@{/posts/delete/{postId}(postId=${post.postId})}" method="post">
                         <button type="submit">삭제</button>
                     </form>
@@ -34,6 +35,15 @@
     </table>
     <div th:if="${param.error}">
         게시판 글 삭제 실패
+    </div>
+    <div>
+        <button th:onclick="|location.href='@{/posts/add}'|">게시판 글 등록</button>
+    </div>
+    <!-- 로그인 되어있을 경우에만 보임-->
+   <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/users/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
     </div>
 </body>
 </html>
