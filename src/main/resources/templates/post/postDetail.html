@@ -14,8 +14,9 @@
         <input type="text" th:field="*{body}" placeholder="글을 입력하세요">
         <label for="likes">좋아요</label>
         <input type="text" id="likes" name="likes" th:value="*{likes}" disabled>
-        <label for="userid">등록Id</label>
-        <input type="text" id="userid" name="userid" th:value="*{userid}" disabled>
+<!--        disabled 로 주면 서버로 값이 넘어가지 않음-->
+<!--        <label for="userid">등록Id</label>-->
+        <input type="text" id="userid" name="userid" th:value="*{userid}" hidden>
         <div th:if="${post.userid == session.userid}">
             <input type="submit" value="수정">
         </div>

@@ -49,10 +49,23 @@ public class PostWebController {
 
   @PostMapping("/posts/update/{postId}")
   public String updateBodyPost(@PathVariable Integer postId,
-                               @ModelAttribute Post post) {
+                               @ModelAttribute Post post,
+                               HttpSession session) {
     // URL 로 요청이 들어왔는지 로그를 남긴다. ---> filter
-    postService.updateBodyPost(postId, post);
-    return "redirect:/posts/{postId}"; //"updateBodyPost == 성공";
+    // session.userid ==> post.userid
+    // 현재 로그인 한 사용자가 ModelAttribute 로 넘어온 사용자정보(등록한 정보)가 맞는지 확인 후 post add 처리
+    String userid = (String)session.getAttribute("userid");
+
+    log.info("userid: {} " , userid);
+    log.info("post: {} " , post);
+
+    if(userid != null && !userid.isEmpty() && !userid.isBlank()) {
+      if(userid.equals(post.getUserid())) {
+        postService.updateBodyPost(postId, post);
+        return "redirect:/posts/{postId}"; //"updateBodyPost == 성공";
+      }
+    }
+    return "redirect:/posts/{postId}";
   }
 
   @GetMapping("/posts/add")
