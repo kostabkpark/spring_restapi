@@ -10,7 +10,7 @@
     <p th:if="${param.error}" style="color:red">
         회원가입 오류
     </p>
-    <form th:action method="post">
+    <form th:action="@{/users/login}" method="post" id="join_form">
         <div>
             <label for="userid">Userid</label>
             <input type="text" id="userid" name="userid">
@@ -29,10 +29,12 @@
             <input type="text" id="name" name="name">
         </div>
         <div>
-            <input type="submit" value="회원가입">
+            <button onclick="joinBtn()" type="button">회원가입</button>
         </div>
         <div>
-            <button type="button" th:onclick="|location.href='@{/users/login}|">로그인</button>
+<!--            <button type="button" th:onclick="|location.href='@{/users/login}|">로그인</button>-->
+            <button type="reset">취소</button>
+            <button th:onclick="|location.href='@{/users/login}|" type="button">로그인</button>
         </div>
     </form>
     <script>
@@ -58,6 +60,22 @@
                 });
             }
         }
+
+        function joinBtn() {
+            const userid = document.getElementById("userid").value.trim();
+            const pwd1 = document.getElementById("pwd1").value.trim();
+            const pwd2 = document.getElementById("pwd2").value.trim();
+            const name = document.getElementById("name").value.trim();
+            if(userid && pwd1 && pwd2 && name) {
+                if(duplicateUseridCheck && pwd1 == pwd2) {
+                   document.getElementById("join_form").submit();
+                } else {
+                    alert("이미 사용중인 아이디이거나, 입력한 2개의 암호가 다릅니다.");
+                }
+            } else {
+                alert("필수 입력 값을 확인해주세요.");
+            }
+        };
     </script>
 </body>
 </html>
