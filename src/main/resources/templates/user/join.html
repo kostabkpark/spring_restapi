@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
 </head>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <body>
     <h1>회원가입</h1>
     <p th:if="${param.error}" style="color:red">
@@ -13,6 +14,7 @@
         <div>
             <label for="userid">Userid</label>
             <input type="text" id="userid" name="userid">
+            <button onclick="useridCheck()" type="button">아이디 중복 체크</button>
         </div>
         <div>
             <label for="pwd1">Password 1</label>
@@ -33,5 +35,29 @@
             <button type="button" th:onclick="|location.href='@{/users/login}|">로그인</button>
         </div>
     </form>
+    <script>
+        let duplicateUseridCheck = false;
+        function useridCheck() {
+            const userid = document.getElementById("userid").value.trim();
+            console.log("userid ==> " + userid);
+            if(userid == "") {
+                alert("아이디를 입력해주세요.");
+            } else {
+                axios.get("/users/check", {
+                    params:{userid : userid}
+                }).then(res => {
+                    if(res.data) {
+                        alert("사용 가능한 아이디입니다.");
+                    } else {
+                        alert("이미 사용중인 아이디입니다.");
+                    }
+                duplicateUseridCheck = res.data;
+                }).catch(err => {
+                    console.err(err);
+                    duplicateUseridCheck = false;
+                });
+            }
+        }
+    </script>
 </body>
 </html>
